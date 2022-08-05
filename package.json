@@ -1,0 +1,37 @@
+{
+  "name": "test-typedoc",
+  "version": "0.0.0",
+  "main": "dist/example.js",
+  "module": "dist/eample.modern.js",
+  "source": "src/example.ts",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "types": "dist/example.d.ts",
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "microbundle-crl --no-compress --format modern,cjs",
+    "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "lint": "eslint --fix 'src/**/*.ts'",
+    "prebuild": "rimraf dist",
+    "build:docs": "rimraf docs && typedoc --out docs --theme github-wiki src/example.ts",
+    "test": "jest --config jest.config.ts",
+    "test:coverage": "jest --config jest.config.ts --coverage",
+    "test:watch": "jest --config jest.config.ts --coverage --watch",
+    "test:prod": "yarn lint && yarn test -- --no-cache",
+    "deploy": "yarn test:prod && np",
+    "docs": "yarn build:docs && http-server docs"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "microbundle-crl": "^0.13.11",
+    "rimraf": "^3.0.2",
+    "typedoc": "^0.23.10",
+    "typedoc-github-wiki-theme": "^1.0.1",
+    "typedoc-plugin-markdown": "^3.13.4",
+    "typescript": "^4.7.4"
+  }
+}
